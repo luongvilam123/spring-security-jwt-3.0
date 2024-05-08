@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/login
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8888
+application:
+  security:
+    jwt:
+      secret-key: 4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d749065t7y8i
+#      expiration: 86400000 # a day
+      expiration: 300000 # 5 minutes
+      refresh-token:
+        expiration: 604800000 # 7 days
+  async:
+    corepoolsize: 100
+    maxpoolsize: 1000

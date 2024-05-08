@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: spring-security-login
+  profiles:
+    active: local
+    include: kafka
