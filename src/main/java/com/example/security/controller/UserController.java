@@ -2,6 +2,8 @@ package com.example.security.controller;
 
 import com.example.security.dto.ChangePasswordRequest;
 import com.example.security.dto.RegisterRequest;
+import com.example.security.entity.User;
+import com.example.security.repository.UserRepository;
 import com.example.security.dto.AuthenticationResponse;
 import com.example.security.dto.LoginRequest;
 import com.example.security.service.AuthenticationService;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.security.Principal;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user/")
@@ -24,6 +27,7 @@ import java.security.Principal;
 public class UserController {
 
     final private AuthenticationService authService;
+    final private UserRepository userRepository;
 
     @Operation(
             description = "This Endpoint is for User Register",
@@ -54,12 +58,12 @@ public class UserController {
         return ResponseEntity.ok(authService.authenticate(request));
     }
 
-    @GetMapping("refresh-token")
-    public void  getRefreshToken(
+    @PostMapping("refresh-token")
+    public AuthenticationResponse  getRefreshToken(
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
-        authService.refreshToken(request, response);
+        return authService.refreshToken(request, response);
     }
 
     @PostMapping("change-password")
@@ -70,5 +74,21 @@ public class UserController {
         authService.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("create-audit-user")
+    public String createAuditUser() {
+        User user = new User();
+        user.setEmail("testEMail@gmail.com");
+        user.setUsername("testUserName");
+        userRepository.save(user);
+        return "Create new user success";
+    }
+
+    @GetMapping("modified-audit-user")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
+    
 
 }

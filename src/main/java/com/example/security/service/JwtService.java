@@ -51,12 +51,12 @@ public class JwtService {
      */
     public boolean isValid(String token, UserDetails user) {
         String email = extractUsername(token);
-        boolean validToken = tokenRepository
-                .findByToken(token)
-                .map(t -> !t.isLoggedOut())
-                .orElse(false);
+        // boolean validToken = tokenRepository
+        //         .findByToken(token)
+        //         .map(t -> !t.isLoggedOut())
+        //         .orElse(false);
 
-        return (email.equals(user.getUsername())) && !isTokenExpired(token) && validToken;
+        return (email.equals(user.getUsername())) && !isTokenExpired(token);
     }
 
     /**

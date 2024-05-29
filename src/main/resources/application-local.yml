@@ -5,9 +5,15 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
     show-sql: false
     hibernate:
       ddl-auto: update
+  output:
+    ansi: 
+      enabled:  always
 server:
   port: 8888
 application:

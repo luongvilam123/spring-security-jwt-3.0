@@ -123,7 +123,7 @@ public class AuthenticationService {
      * @param response The HttpServletResponse used to send the new access token to the client.
      * @throws IOException if an I/O error occurs while writing the new access token to the response.
      */
-    public void refreshToken(
+    public AuthenticationResponse refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
@@ -131,7 +131,7 @@ public class AuthenticationService {
         final String refreshToken;
         final String userEmail;
         if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            return;
+            return AuthenticationResponse.builder().message("Invalid Refresh Token").build();
         }
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
@@ -142,13 +142,13 @@ public class AuthenticationService {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllTokenByUser(user);
                 saveUserToken(accessToken,user);
-                var authResponse = AuthenticationResponse.builder()
+                return AuthenticationResponse.builder()
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();
-                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
+        return AuthenticationResponse.builder().message("Something Wrong !").build();
     }
 
     /**
