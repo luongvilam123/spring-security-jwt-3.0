@@ -1,6 +1,5 @@
 package com.example.security.constant;
 
-import com.example.security.constant.Permission;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -46,7 +45,6 @@ public enum Role {
                 .stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
                 .collect(Collectors.toList());
-//        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         authorities.add(new SimpleGrantedAuthority(this.name()));
         return authorities;
     }

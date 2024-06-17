@@ -1,7 +1,6 @@
 package com.example.security.service;
 
 import com.example.security.entity.User;
-import com.example.security.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -22,8 +21,6 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 public class JwtService {
-
-    private final TokenRepository tokenRepository;
 
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
@@ -51,11 +48,6 @@ public class JwtService {
      */
     public boolean isValid(String token, UserDetails user) {
         String email = extractUsername(token);
-        // boolean validToken = tokenRepository
-        //         .findByToken(token)
-        //         .map(t -> !t.isLoggedOut())
-        //         .orElse(false);
-
         return (email.equals(user.getUsername())) && !isTokenExpired(token);
     }
 

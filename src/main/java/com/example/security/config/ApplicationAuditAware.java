@@ -11,17 +11,20 @@ import com.example.security.entity.User;
 public class ApplicationAuditAware implements AuditorAware<String> {
 
     // Enable CreatedBy and LastModifiedBy
+    /**
+     * This class provides the implementation for retrieving the current auditor's
+     * information.
+     * The auditor is typically the currently authenticated user.
+     */
     @SuppressWarnings("null")
     @Override
     public Optional<String> getCurrentAuditor() {
-        Authentication authentication =
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication();
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
         if (authentication == null ||
-            !authentication.isAuthenticated() ||
-                authentication instanceof AnonymousAuthenticationToken
-        ) {
+                !authentication.isAuthenticated() ||
+                authentication instanceof AnonymousAuthenticationToken) {
             return Optional.empty();
         }
 

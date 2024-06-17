@@ -34,10 +34,9 @@ public class SecurityConfig {
         private final CustomLogoutHandler logoutHandler;
 
         private static final String[] WHITE_LIST_URL = {
-                        "/api/v1/user/login/**",
-                        "/api/v1/user/register/**",
+                        "/api/v1/user/login/",
+                        "/api/v1/user/register/",
                         "/api/v1/user/refresh-token",
-                        "/api/v1/user/login-async/**",
                         "/v3/api-docs/**",
                         "/swagger-resources",
                         "/swagger-resources/**",
@@ -48,6 +47,15 @@ public class SecurityConfig {
                         "/swagger-ui.html"
         };
 
+        /**
+         * Creates and configures an {AuthenticationProvider} bean.
+         * This bean is used for authentication purposes, utilizing a
+         * {UserDetailsService}
+         * and a password encoder.
+         *
+         * @return an {AuthenticationProvider} configured with user details
+         *         service and password encoder
+         */
         @Bean
         AuthenticationProvider authenticationProvider() {
                 DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -56,6 +64,18 @@ public class SecurityConfig {
                 return authProvider;
         }
 
+        /**
+         * Configures the security filter chain for the application.
+         * This method sets up the security configurations including CSRF, request
+         * authorization,
+         * user details service, session management, JWT authentication filter,
+         * exception handling, and logout functionality.
+         *
+         * @param http the {@code HttpSecurity} to modify the default security
+         *             configurations
+         * @return a configured {@code SecurityFilterChain} object
+         * @throws Exception if an error occurs while building the security filter chain
+         */
         @Bean
         SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
