@@ -34,7 +34,7 @@ public class SecurityConfig {
         private final CustomLogoutHandler logoutHandler;
 
         private static final String[] WHITE_LIST_URL = {
-                        "/api/v1/user/login/",
+                        "/api/v1/user/login/**",
                         "/api/v1/user/register/",
                         "/api/v1/user/refresh-token",
                         "/v3/api-docs/**",
@@ -108,16 +108,38 @@ public class SecurityConfig {
 
         }
 
+        /**
+         * Defines a PasswordEncoder bean that uses BCrypt hashing algorithm.
+         * 
+         * @return a BCryptPasswordEncoder instance.
+         */
         @Bean
         PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
         }
 
+        /**
+         * Defines an AuthenticationManager bean by retrieving the default
+         * AuthenticationManager
+         * from the provided AuthenticationConfiguration.
+         * 
+         * @param configuration the AuthenticationConfiguration to retrieve the
+         *                      AuthenticationManager from.
+         * @return the AuthenticationManager instance.
+         * @throws Exception if an error occurs while retrieving the
+         *                   AuthenticationManager.
+         */
         @Bean
         AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
                 return configuration.getAuthenticationManager();
         }
 
+        /**
+         * Defines an AuditorAware bean that provides the current auditor for auditing
+         * purposes.
+         * 
+         * @return an ApplicationAuditAware instance.
+         */
         @Bean
         AuditorAware<String> auditorAware() {
                 return new ApplicationAuditAware();

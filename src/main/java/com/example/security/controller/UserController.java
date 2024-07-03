@@ -27,6 +27,7 @@ import java.security.Principal;
 public class UserController {
 
     final private AuthenticationService authService;
+
     final private UserRepository userRepository;
 
     @Operation(
@@ -74,21 +75,4 @@ public class UserController {
         authService.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("create-audit-user")
-    public String createAuditUser() {
-        User user = new User();
-        user.setEmail("testEMail@gmail.com");
-        user.setUsername("testUserName");
-        userRepository.save(user);
-        return "Create new user success";
-    }
-
-    @GetMapping("modified-audit-user")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-    
-    
-
 }

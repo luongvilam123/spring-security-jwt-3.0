@@ -27,7 +27,7 @@ public class ThreadPoolConfig {
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);
         executor.setMaxPoolSize(maxPoolSize);
-        executor.setQueueCapacity(500); //Keep this commented else throws error if queue is full.
+        executor.setQueueCapacity(10); //Keep this commented else throws error if queue is full.
         executor.setThreadNamePrefix("asyncexe-");
         executor.initialize();
         return executor;

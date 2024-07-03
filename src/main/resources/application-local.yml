@@ -25,5 +25,5 @@ application:
       refresh-token:
         expiration: 604800000 # 7 days
   async:
-    corepoolsize: 100
-    maxpoolsize: 1000
+    corepoolsize: 3
+    maxpoolsize: 5

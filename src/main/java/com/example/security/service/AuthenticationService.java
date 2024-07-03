@@ -5,7 +5,6 @@ import com.example.security.entity.Token;
 import com.example.security.entity.User;
 import com.example.security.repository.TokenRepository;
 import com.example.security.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -212,11 +211,12 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-    @Async("asyncTaskExecutor")
-    public void getJsonRes(){
-        System.out.println("Execute method with configured executor - "
-                + Thread.currentThread().getName());
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("https://jsonplaceholder.typicode.com/posts/1", JsonMockResponse.class);
-    }
+//    @Async("asyncTaskExecutor")
+//    public void getJsonRes(){
+//        System.out.println("Execute method with configured executor - "
+//                + Thread.currentThread().getName());
+//        RestTemplate restTemplate = new RestTemplate();
+//        JsonMockResponse result = restTemplate.getForObject("https://jsonplaceholder.typicode.com/posts/1", JsonMockResponse.class);
+//        System.out.println(result != null ? result.toString() : "null");
+//    }
 }
