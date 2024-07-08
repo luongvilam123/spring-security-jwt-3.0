@@ -34,11 +34,10 @@ public class SecurityConfig {
         private final CustomLogoutHandler logoutHandler;
 
         private static final String[] WHITE_LIST_URL = {
-                        "/api/v1/user/login/**",
-                        "/api/v1/user/register/",
-                        "/api/v1/user/refresh-token",
+                        "/api/v1/user/login",
+                        "/api/v1/user/register",
+                        "/api/v1/user/refresh-token"git ,
                         "/v3/api-docs/**",
-                        "/swagger-resources",
                         "/swagger-resources/**",
                         "/configuration/ui",
                         "/configuration/security",
