@@ -33,7 +33,8 @@ public class SecurityConfig {
 
         private final CustomLogoutHandler logoutHandler;
 
-        private static final String[] WHITE_LIST_URL = {
+        private String[] getWhiteListUrls() {
+                return new String[]{
                         "/api/v1/user/login",
                         "/api/v1/user/register",
                         "/api/v1/user/refresh-token",
@@ -44,7 +45,8 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html"
-        };
+                };
+        }
 
         /**
          * Creates and configures an {AuthenticationProvider} bean.
@@ -81,10 +83,8 @@ public class SecurityConfig {
                 return http
                                 .csrf(AbstractHttpConfigurer::disable)
                                 .authorizeHttpRequests(
-                                                req -> req.requestMatchers(WHITE_LIST_URL)
+                                                req -> req.requestMatchers(getWhiteListUrls())
                                                                 .permitAll()
-                                                                // .requestMatchers("/api/test/admin_only/**").hasAuthority(Role.ADMIN.name())
-                                                                // .requestMatchers("/admin_only/authority/**").hasRole(Role.ADMIN.name())
                                                                 .anyRequest()
                                                                 .authenticated())
                                 .userDetailsService(userDetailsServiceImp)
